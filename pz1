@@ -106,6 +106,31 @@ show(radio_group)
 show(checkbox_group)
 
 
+from bokeh.io import output_notebook, show
+from bokeh.layouts import column
+from bokeh.models import Button, CheckboxGroup, RadioGroup, CustomJS
+
+
+output_notebook()
+
+
+button = Button(label="Click Me", button_type="success")
+button.js_on_click(CustomJS(code="alert('Button was clicked!')"))
+
+
+checkbox = CheckboxGroup(labels=["First", "Second", "Third"], active=[0, 2])
+checkbox.js_on_change("active", CustomJS(code="alert('Checkbox active: ' + this.active)"))
+
+
+radio = RadioGroup(labels=["First", "Second", "Third"], active=0)
+radio.js_on_change("active", CustomJS(code="alert('Radio button changed to: ' + this.active)"))
+
+
+layout = column(button, checkbox, radio)
+
+show(layout)
+
+
 p7
 
 import plot.express as px

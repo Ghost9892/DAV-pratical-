@@ -1,0 +1,129 @@
+p1
+import pandas as pd
+import matplotlib.pyplot as plt 
+import seaborn as sns
+
+data=pd.read_csv("/content/tips.csv")
+
+plt.scatter(data["day"],data["tip"])
+
+plt.title("scatter plot")
+plt.xlabel("day")
+plt.ylabel("tip")
+plt.show()
+
+p2
+
+import pandas as pd
+import matplotlib.pyplot as plt 
+import seaborn as sns
+
+data=pd.read_csv("/content/tips.csv")
+
+plt.plot(data["tip"])
+plt.plot(data["size"])
+
+plt.title("line plot")
+plt.xlabel("tip")
+plt.ylabel("size")
+plt.show()
+
+p3
+
+import pandas as pd
+import matplotlib.pyplot as plt 
+import seaborn as sns
+
+data=pd.read_csv("/content/tips.csv")
+
+sns.histplot(x="total_bill",data=data,kde=True,hue='sex')
+
+
+p4
+
+import bokeh.plotting
+import bokeh.io
+import bokeh.model
+import bokeh.layouts
+
+from bokeh.plotting import figure,output_file,show 
+import pandas as pd
+
+graph=figure(title="boken bar ")
+output_file("bar.html")
+data=pd.read_csv("/content/tips.csv")
+graph.vbar(x=data['total_bill'],top=data['tip'],legend_label="tipvsbill",color='red')
+graph.legend.click_policy="hide"
+show(graph)
+
+p5
+
+import bokeh.plotting
+import bokeh.io
+import bokeh.model
+import bokeh.layouts
+
+from bokeh.plotting import figure,output_file,show 
+import pandas as pd 
+
+output_file("test.html")
+graph = figure(title="line graph")
+graph.axis.axis_lable= "x-axis"
+graph.axis.axis_lable= "y-axis"
+x=[1,2,3,4,5]
+y=[5,4,3,2,1]
+line_colour ='red'
+line_dash="dotted"
+line_dash_offset = 1
+legend_lable = "sample line"
+graph.line(x,y,line_width=2,line_colour=line_colour,line_dash=line_dash,line_dash_offset=line_dash_offset,legend_lable=legend_lable)
+show(graph)
+
+p6
+
+from bokeh.io import show, output_file
+from bokeh.models import Button, CheckboxGroup, RadioGroup, CustomJS
+
+output_file("bar1.html")
+
+button = Button(label="Click Me", button_type="success")
+button.js_on_click(CustomJS(code="alert('Button Clicked')"))
+
+L = ["First", "Second", "third"]
+
+checkbox_group = CheckboxGroup(labels=L, active=[0,2])
+checkbox_group.js_event_callbacks['active'] = [
+    CustomJS(code="""console.log('checkbox_group: value=' + this.active, this.toString());""")
+]
+
+radio_group = RadioGroup(labels=L, active=0)
+radio_group.js_event_callbacks['active'] = [
+    CustomJS(code="alert('Button Clicked')")
+]
+
+show(button)
+show(radio_group)
+show(checkbox_group)
+
+
+p7
+
+import plot.express as px
+df=px.data.iris()
+fig=px.scatter(df,y="sepal_width",line_dash="species",color="species")
+fig.show()
+
+
+p8
+
+import plotly.express as px
+df=px.data.tips()
+fig=px.bar(df,x='day',y='tip',colour='sex')
+fig1=px.scatter(df,x='toal_bill',y='tip',colour='time')
+fig2=px.histogram(df,values='total_bill',colour='sex')
+fig3=px.bar(df,values='total_bills',name='day')
+fig.show()
+fig1.show()
+fig2.show()
+fig3.show()
+
